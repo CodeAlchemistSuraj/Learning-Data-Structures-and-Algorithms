@@ -1,0 +1,468 @@
+Here is an HTML document that creates a clean, interactive list of 100 very simple Data Structures and Algorithms problems focused on string operations.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>100 Simple DSA Problems: String Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f5f7fc 0%, #eef2f8 100%);
+            font-family: 'Segoe UI', Roboto, 'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* header area */
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .badge {
+            background: #2c3e66;
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .sub {
+            text-align: center;
+            color: #4a627a;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            border-bottom: 1px solid #cddfe7;
+            display: inline-block;
+            padding-bottom: 0.4rem;
+            width: auto;
+        }
+
+        .desc-note {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #1f4e6e;
+            border: 1px solid #cbdde9;
+        }
+
+        /* stats + filters */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .stats {
+            background: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1e4663;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border: 1px solid #dce5ec;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: white;
+            padding: 0.2rem 0.2rem 0.2rem 1rem;
+            border-radius: 50px;
+            border: 1px solid #cbdbe0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.55rem 0;
+            font-size: 0.9rem;
+            width: 220px;
+            outline: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .search-box button {
+            background: #2c5282;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            background: #1e3a5f;
+        }
+
+        .reset-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #2d3748;
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #cbd5e1;
+        }
+
+        /* grid layout */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        /* card design */
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1rem 1.2rem 1.2rem 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2edf2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -12px rgba(0, 32, 64, 0.12);
+            border-color: #bdd9e8;
+        }
+
+        .prob-index {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #5b7f9e;
+            letter-spacing: 0.3px;
+            background: #eef3fa;
+            display: inline-block;
+            width: fit-content;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-bottom: 0.7rem;
+        }
+
+        .prob-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f2b3f;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            border-left: 3px solid #3b82f6;
+            padding-left: 10px;
+        }
+
+        .prob-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #2c4b6e;
+            margin-bottom: 0.9rem;
+            background: #f9fdfe;
+            padding: 0.5rem 0.7rem;
+            border-radius: 16px;
+            border: 1px solid #e9f0f5;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #e0f0fe;
+            color: #0369a1;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            width: fit-content;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #5f7f9c;
+            border-top: 1px solid #cde0ea;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✧ String Craft ✧</h1>
+        <div class="badge">100 Very Simple DSA String Problems</div>
+        <div class="desc-note">
+            <span>📝</span> beginner-friendly · fundamental string ops · loops · slicing · patterns
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="stats" id="statsDisplay">📋 showing all 100 problems</div>
+        <div style="display: flex; gap: 12px;">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="filter by keyword, e.g. 'reverse', 'vowel'">
+                <button id="searchBtn">🔍 Filter</button>
+            </div>
+            <button id="resetBtn" class="reset-btn">⟳ Reset</button>
+        </div>
+    </div>
+
+    <div id="problemsContainer" class="problems-grid"></div>
+    <div class="footer-note">
+        ⚡ 100 string manipulation challenges — each description is a minimal, independent task. Perfect for warming up or quick practice.
+    </div>
+</div>
+
+<script>
+    // ----- 100 Very Simple DSA String Problems (Question + short description) -----
+    const problemsList = [
+        { title: "Reverse a string", desc: "Given a string, return its reversed version. (e.g., 'hello' → 'olleh')" },
+        { title: "Check palindrome", desc: "Determine if a string reads the same forwards and backwards (case-sensitive)." },
+        { title: "Count vowels", desc: "Count the number of vowels (a, e, i, o, u) in a given string." },
+        { title: "Count consonants", desc: "Return total number of consonants (non-vowel letters) in a string." },
+        { title: "Convert to uppercase", desc: "Transform all characters in a string to uppercase." },
+        { title: "Convert to lowercase", desc: "Transform all characters in a string to lowercase." },
+        { title: "Capitalize first letter", desc: "Capitalize the first character of the string, keep rest same." },
+        { title: "Toggle case", desc: "Convert uppercase to lowercase and vice versa for each letter." },
+        { title: "Length of string", desc: "Find the number of characters in a given string (without built-in len? but conceptually)." },
+        { title: "Remove spaces", desc: "Delete all whitespace characters from the string." },
+        { title: "Replace character", desc: "Replace all occurrences of a given character with another character." },
+        { title: "Count character frequency", desc: "Count how many times a specific character appears." },
+        { title: "First non-repeating character", desc: "Find the first character that does not repeat in the string." },
+        { title: "Last non-repeating character", desc: "Find the last character that appears only once." },
+        { title: "Check if two strings are anagrams", desc: "Determine if two strings have same characters with same frequencies." },
+        { title: "Remove duplicate characters", desc: "Return a string with duplicate characters removed (preserve order)." },
+        { title: "Check if string contains only digits", desc: "Return true if all characters are numeric digits." },
+        { title: "Check if string contains only alphabets", desc: "Return true if all characters are letters (A-Z or a-z)." },
+        { title: "Extract all digits", desc: "Given a mixed string, return only the digit characters." },
+        { title: "Extract all alphabets", desc: "Return only the alphabetic characters from a string." },
+        { title: "Swap first and last character", desc: "Exchange the first and last character of the string." },
+        { title: "Remove first character", desc: "Return string without its first character." },
+        { title: "Remove last character", desc: "Return string without its last character." },
+        { title: "Get substring from index", desc: "Return substring starting from given index to end." },
+        { title: "Get substring between indices", desc: "Return substring from start index to end index (exclusive)." },
+        { title: "Concatenate two strings", desc: "Combine two strings into one." },
+        { title: "Repeat string N times", desc: "Given a string and number N, repeat it N times." },
+        { title: "Compare two strings (lexicographic)", desc: "Return which string is greater or if equal." },
+        { title: "Check if string starts with prefix", desc: "Return true if string begins with given prefix." },
+        { title: "Check if string ends with suffix", desc: "Return true if string ends with given suffix." },
+        { title: "Find index of first occurrence", desc: "Return the first index of a given substring (or -1 if not found)." },
+        { title: "Find last occurrence index", desc: "Return last position where substring appears." },
+        { title: "Count substring occurrences", desc: "Count how many times a substring appears (non-overlapping)." },
+        { title: "Remove all occurrences of a char", desc: "Delete every occurrence of a specified character." },
+        { title: "Replace all spaces with hyphen", desc: "Change every space character to '-'." },
+        { title: "Reverse words in a string", desc: "Given words separated by spaces, reverse the word order." },
+        { title: "Check if string is empty", desc: "Return true if length is zero." },
+        { title: "Make all characters alternate case", desc: "Convert string to pattern: uppercase, lowercase, uppercase... starting with uppercase." },
+        { title: "Count words", desc: "Count number of words separated by spaces (multiple spaces handled simply)." },
+        { title: "Longest word length", desc: "Find the length of the longest word in a sentence." },
+        { title: "Shortest word length", desc: "Find the length of the shortest word in a sentence." },
+        { title: "Remove punctuation", desc: "Strip common punctuation marks (. , ! ? ; : ) from a string." },
+        { title: "Check if string is title case", desc: "Verify if first letter of each word is uppercase and rest lowercase." },
+        { title: "Convert to snake_case", desc: "Replace spaces with underscores and lowercase everything." },
+        { title: "Convert to kebab-case", desc: "Replace spaces with hyphens and lowercase all letters." },
+        { title: "Left rotation by K chars", desc: "Move first K characters to the end." },
+        { title: "Right rotation by K chars", desc: "Move last K characters to the front." },
+        { title: "Check if two strings are rotation", desc: "Determine if one string is rotation of another." },
+        { title: "Remove adjacent duplicates", desc: "Delete duplicate adjacent characters (like 'aabb' → 'ab')." },
+        { title: "Compress string (run-length)", desc: "Convert 'aaabbc' → 'a3b2c1'." },
+        { title: "Expand run-length string", desc: "Given 'a3b2c1' reconstruct original 'aaabbc'." },
+        { title: "Check if string is numeric (including negative)", desc: "Validate if string represents a valid integer." },
+        { title: "String to integer (atoi)", desc: "Convert numeric string to integer, ignore leading spaces." },
+        { title: "Integer to string", desc: "Convert given integer to its string representation." },
+        { title: "Get character at index", desc: "Return character at specific position (0-based)." },
+        { title: "Set character at index", desc: "Replace character at given index with new char." },
+        { title: "Check for balanced parentheses (simple)", desc: "Given only '(' and ')', check if balanced." },
+        { title: "Remove outermost parentheses", desc: "Remove the outermost parentheses from every primitive group." },
+        { title: "Make string great (adjacent case-sensitive)", desc: "Remove adjacent characters that are same letter but opposite case." },
+        { title: "Find the difference", desc: "Given two strings where second is shuffled with one extra char, find that char." },
+        { title: "Check if strings are isomorphic", desc: "Check if characters in string can be mapped to second." },
+        { title: "Reverse only vowels", desc: "Reverse the order of vowels in the string while consonants stay." },
+        { title: "Sort characters by frequency", desc: "Return characters sorted descending by frequency." },
+        { title: "Most frequent character", desc: "Find the character that appears most often." },
+        { title: "Least frequent character", desc: "Find character with smallest frequency (ignore ties)." },
+        { title: "Remove specified characters", desc: "Given a string and a set of chars, delete those chars." },
+        { title: "Check if string is a subsequence", desc: "Given two strings, check if first is subsequence of second." },
+        { title: "Longest common prefix", desc: "Among array of strings, find longest common starting substring." },
+        { title: "Valid palindrome (ignoring non-alnum)", desc: "Check palindrome ignoring punctuation and case." },
+        { title: "Reverse words and swap case", desc: "Reverse word order and toggle case of each letter." },
+        { title: "Remove leading/trailing spaces", desc: "Trim spaces from start and end of string." },
+        { title: "Add character in between", desc: "Insert a specific character between every two chars (e.g., 'abc' → 'a-b-c')." },
+        { title: "Move all 'x' to end", desc: "Take all occurrences of character 'x' and move to end while preserving order of others." },
+        { title: "Check pangram", desc: "Determine if string contains every letter of alphabet at least once." },
+        { title: "Find first repeated character", desc: "Return first character that occurs more than once." },
+        { title: "Check if strings are one edit away", desc: "Insert/remove/replace one char to make strings equal." },
+        { title: "Largest odd number in string", desc: "Given numeric string, find largest odd-valued substring." },
+        { title: "Add binary strings", desc: "Given two binary strings, return their sum as binary string." },
+        { title: "Check if string is a permutation of palindrome", desc: "Can characters be rearranged into a palindrome?" },
+        { title: "Remove K digits to get smallest number", desc: "Remove K digits from numeric string to make smallest number." },
+        { title: "Group anagrams together", desc: "Given list of strings, group strings that are anagrams." },
+        { title: "Check cyclic shift", desc: "Check if two strings are equal after some cyclic rotation." },
+        { title: "Count and say pattern", desc: "Implement basic count-and-say sequence for one iteration." },
+        { title: "Reverse prefix of word", desc: "Reverse substring from start up to first occurrence of given char." },
+        { title: "Minimum number of swaps to make string balanced", desc: "For brackets, min swaps to balance." },
+        { title: "Roman numeral to integer", desc: "Convert simple Roman numeral string to integer (I, V, X, L, C, D, M)." },
+        { title: "Integer to Roman numeral", desc: "Convert integer to Roman numeral string (1-3999)." },
+        { title: "Split string into balanced substrings", desc: "Split into max number of balanced substrings with equal number of 'L' and 'R'." },
+        { title: "Valid word abbreviation", desc: "Check if abbreviation matches pattern (like 'i18n' for 'internationalization')." },
+        { title: "String shifting letters", desc: "Shift each character by given integer (cyclic alphabet shift)." },
+        { title: "Remove consecutive duplicates (recursive)", desc: "Remove all consecutive duplicates recursively till no adjacent duplicates." },
+        { title: "Check if string can be obtained by rotating another by 2 places", desc: "Left or right rotation by exactly 2 places." },
+        { title: "Find extra character index", desc: "Given two strings where second has one extra character, find its index." },
+        { title: "Sort string by custom order", desc: "Sort characters of string based on custom alphabet order." },
+        { title: "Maximum occurring character in a string", desc: "Find max frequency char (if multiple return first)." },
+        { title: "Change case of each alternate character", desc: "Starting from index0 uppercase, index1 lowercase pattern." },
+        { title: "Extract unique characters in order", desc: "Return only first occurrence of each char." },
+        { title: "String multiplication (repetition)", desc: "Given string and integer, return repeated string." },
+        { title: "Check if string has unique characters", desc: "Determine if all characters are distinct (no repeats)." },
+        { title: "Remove character at specific index", desc: "Delete character at given position and return new string." }
+    ];
+
+    // ensure exactly 100 (the list above is manually crafted to 100 items)
+    // but verify length for safety (should be 100)
+    if (problemsList.length !== 100) {
+        console.warn(`List has ${problemsList.length} problems, adjusting to 100 by padding?`);
+        // if missing any (just in case) we add filler, but list is exactly 100 as per design.
+        while(problemsList.length < 100) {
+            problemsList.push({ title: "Extra string problem", desc: "Basic string manipulation task." });
+        }
+    }
+
+    // render function with filter logic
+    let currentFilter = "";
+
+    function renderProblems(filterText = "") {
+        const container = document.getElementById("problemsContainer");
+        const statsSpan = document.getElementById("statsDisplay");
+        const lowerFilter = filterText.trim().toLowerCase();
+        
+        let filtered = problemsList;
+        if (lowerFilter !== "") {
+            filtered = problemsList.filter(prob => 
+                prob.title.toLowerCase().includes(lowerFilter) || 
+                prob.desc.toLowerCase().includes(lowerFilter)
+            );
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 3rem; background:#f9f9fc; border-radius: 48px;">✨ No matching problems — try a different keyword ✨</div>`;
+            statsSpan.innerText = `🔍 0 / 100 problems match "${filterText}"`;
+            return;
+        }
+        
+        statsSpan.innerText = lowerFilter === "" ? `📋 showing all 100 problems` : `🔍 ${filtered.length} / 100 problems match "${filterText}"`;
+        
+        let html = "";
+        for (let i = 0; i < filtered.length; i++) {
+            const prob = filtered[i];
+            const originalIndex = problemsList.findIndex(p => p.title === prob.title && p.desc === prob.desc) + 1;
+            html += `
+                <div class="card">
+                    <div class="prob-index">#${originalIndex}</div>
+                    <div class="prob-title">${escapeHtml(prob.title)}</div>
+                    <div class="prob-desc">📌 ${escapeHtml(prob.desc)}</div>
+                    <div class="tag">⚡ simple string op</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+    
+    // simple helper to avoid XSS
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // event listeners
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const searchInput = document.getElementById("searchInput");
+    
+    function performSearch() {
+        currentFilter = searchInput.value;
+        renderProblems(currentFilter);
+    }
+    
+    function resetSearch() {
+        searchInput.value = "";
+        currentFilter = "";
+        renderProblems("");
+    }
+    
+    searchBtn.addEventListener("click", performSearch);
+    resetBtn.addEventListener("click", resetSearch);
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") performSearch();
+    });
+    
+    // initial render
+    renderProblems("");
+</script>
+</body>
+</html>
+```
