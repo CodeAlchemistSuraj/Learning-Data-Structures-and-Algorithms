@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>100 Simple DSA Problems: Number System & Math</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f4e8 0%, #efe6d5 100%);
+            font-family: 'Segoe UI', Roboto, 'Inter', system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #2d2a1f;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #b76e2e, #6b3e1a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .badge {
+            background: #7b5a3b;
+            color: #fef3e2;
+            font-size: 0.85rem;
+            padding: 0.25rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .desc-note {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #5a3e22;
+            border: 1px solid #e2cfb3;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .stats {
+            background: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #5a3a1f;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #e0cfb8;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: white;
+            padding: 0.2rem 0.2rem 0.2rem 1rem;
+            border-radius: 50px;
+            border: 1px solid #d6c29d;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.55rem 0;
+            font-size: 0.9rem;
+            width: 220px;
+            outline: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .search-box button {
+            background: #9b6e42;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            background: #7b4e2a;
+        }
+
+        .reset-btn {
+            background: #e2d5c0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #4f3a22;
+        }
+
+        .reset-btn:hover {
+            background: #cdb690;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1rem 1.2rem 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border: 1px solid #eedfc8;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -12px rgba(80, 50, 20, 0.15);
+            border-color: #cdb086;
+        }
+
+        .prob-index {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #a2713e;
+            background: #fcf3e4;
+            display: inline-block;
+            width: fit-content;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-bottom: 0.7rem;
+        }
+
+        .prob-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #352813;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            border-left: 3px solid #d99536;
+            padding-left: 10px;
+        }
+
+        .prob-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #5e4a2f;
+            background: #fefaf4;
+            padding: 0.5rem 0.7rem;
+            border-radius: 16px;
+            border: 1px solid #f1e5d4;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #f4e8da;
+            color: #8b5e2c;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            width: fit-content;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #8b6f48;
+            border-top: 1px solid #e2cfb3;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .problems-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>🔢 Number Theory & Systems</h1>
+        <div class="badge">100 Very Simple DSA Problems | Math + Digits + Bases</div>
+        <div class="desc-note">
+            <span>🧮</span> arithmetic · base conversion · divisibility · digits · prime basics
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="stats" id="statsDisplay">📊 showing all 100 problems</div>
+        <div style="display: flex; gap: 12px;">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="filter by keyword, e.g. 'prime', 'palindrome'">
+                <button id="searchBtn">🔍 Filter</button>
+            </div>
+            <button id="resetBtn" class="reset-btn">⟳ Reset</button>
+        </div>
+    </div>
+
+    <div id="problemsContainer" class="problems-grid"></div>
+    <div class="footer-note">
+        💡 100 fundamental number system problems — each describes a simple math/number DSA task. Perfect for refreshing core concepts.
+    </div>
+</div>
+
+<script>
+    // 100 Very simple DSA problems focused on Number System, Arithmetic, Base conversions, Digit manipulations
+    const numberProblems = [
+        { title: "Check even or odd", desc: "Given an integer, determine if it's even or odd." },
+        { title: "Sum of digits", desc: "Compute the sum of all digits of a non-negative integer." },
+        { title: "Count digits", desc: "Count how many digits are in a given integer." },
+        { title: "Reverse an integer", desc: "Reverse the digits of a number (e.g., 1234 → 4321)." },
+        { title: "Check palindrome number", desc: "Check if a number reads the same forwards and backwards." },
+        { title: "Find factorial", desc: "Compute factorial of n (n! = n × (n-1) × ... × 1)." },
+        { title: "Check prime number", desc: "Determine if a given number is prime (greater than 1, only divisible by 1 and itself)." },
+        { title: "GCD of two numbers", desc: "Find the Greatest Common Divisor using Euclidean method." },
+        { title: "LCM of two numbers", desc: "Compute Least Common Multiple of two integers." },
+        { title: "Check Armstrong number", desc: "Armstrong number: sum of cubes of digits equals the number (for 3 digits)." },
+        { title: "Print multiplication table", desc: "Output multiplication table for given integer up to 10." },
+        { title: "Power calculation", desc: "Compute base raised to exponent (a^b) using loop." },
+        { title: "Check perfect number", desc: "Perfect number equals sum of its proper divisors (e.g., 6 = 1+2+3)." },
+        { title: "Find smallest digit", desc: "Return the smallest digit present in a number." },
+        { title: "Find largest digit", desc: "Return the largest digit in a given integer." },
+        { title: "Count even digits", desc: "Count how many digits in a number are even." },
+        { title: "Count odd digits", desc: "Count how many digits in a number are odd." },
+        { title: "Binary representation", desc: "Convert a positive integer to its binary string." },
+        { title: "Decimal to octal", desc: "Convert a decimal number to octal representation." },
+        { title: "Decimal to hexadecimal", desc: "Convert decimal to hexadecimal (uppercase letters)." },
+        { title: "Binary to decimal", desc: "Convert a binary string to its decimal value." },
+        { title: "Octal to decimal", desc: "Convert octal string to decimal integer." },
+        { title: "Hexadecimal to decimal", desc: "Convert hex string (e.g., '1A') to decimal." },
+        { title: "Check leap year", desc: "Given a year, determine if it's a leap year." },
+        { title: "Sum of first N natural numbers", desc: "Compute sum 1+2+...+N using formula." },
+        { title: "Product of digits", desc: "Multiply all digits of a number together." },
+        { title: "Fibonacci series up to N", desc: "Print first N Fibonacci numbers (0,1,1,2,...)." },
+        { title: "Nth Fibonacci number", desc: "Find the Nth term in Fibonacci sequence." },
+        { title: "Check strong number", desc: "Strong number: sum of factorial of digits equals the number (145)." },
+        { title: "Find divisors", desc: "List all positive divisors of a given integer." },
+        { title: "Count divisors", desc: "Count how many divisors a number has." },
+        { title: "Check automorphic number", desc: "Automorphic: square ends with the number itself (e.g., 25²=625)." },
+        { title: "Find trailing zeros in factorial", desc: "Count trailing zeros in n! without computing factorial." },
+        { title: "Check abundant number", desc: "Sum of proper divisors > number (e.g., 12)." },
+        { title: "Check deficient number", desc: "Sum of proper divisors < number." },
+        { title: "Nth prime number", desc: "Find the Nth prime number (1-indexed)." },
+        { title: "Prime factors", desc: "Print all prime factors of a given number." },
+        { title: "Check co-prime numbers", desc: "Determine if two numbers are coprime (GCD=1)." },
+        { title: "Sum of prime digits", desc: "Given a number, sum digits that are prime (2,3,5,7)." },
+        { title: "Number of set bits", desc: "Count 1's in binary representation of an integer." },
+        { title: "Check power of two", desc: "Determine if a number is a power of two." },
+        { title: "Check power of three", desc: "Determine if integer is a power of three." },
+        { title: "Reverse bits", desc: "Reverse the bits of a 32-bit unsigned integer." },
+        { title: "Add two numbers without +", desc: "Sum two integers using bitwise operations." },
+        { title: "Check even without modulo", desc: "Determine even/odd using bitwise AND." },
+        { title: "Swap two numbers", desc: "Swap two integers without using temp variable." },
+        { title: "Find missing number", desc: "Given array 0..N with one missing, find missing number." },
+        { title: "Find single number", desc: "Array where every element appears twice except one; find it." },
+        { title: "Roman numeral to integer", desc: "Convert Roman numeral (I, V, X, L, C, D, M) to integer." },
+        { title: "Integer to Roman", desc: "Convert integer (1-3999) to Roman numeral string." },
+        { title: "Check ugly number", desc: "Ugly number has prime factors only 2,3,5." },
+        { title: "Find nth ugly number", desc: "Find Nth ugly number (1-indexed)." },
+        { title: "Happy number", desc: "Check if a number is happy (sum squares of digits leads to 1)." },
+        { title: "Check neon number", desc: "Neon: square's digit sum equals original (9 → 81→ 8+1=9)." },
+        { title: "Check spy number", desc: "Sum of digits equals product of digits (1124: 1+1+2+4=8, product=8)." },
+        { title: "Check duck number", desc: "Positive number containing zero but not starting with zero." },
+        { title: "Find smallest multiple", desc: "Find smallest number divisible by all numbers 1..N." },
+        { title: "Check harshad number", desc: "Divisible by sum of its digits (18: sum=9, 18/9=2)." },
+        { title: "Sum of squares of digits", desc: "Compute sum of squares of each digit." },
+        { title: "Digit frequency", desc: "Count frequency of each digit (0-9) in a number." },
+        { title: "Largest number from digits", desc: "Rearrange digits to form largest possible number." },
+        { title: "Smallest number from digits", desc: "Rearrange digits to form smallest possible (no leading zero unless only zero)." },
+        { title: "Rotate digits left", desc: "Left rotate digits by one position (1234 → 2341)." },
+        { title: "Rotate digits right", desc: "Right rotate digits by one position (1234 → 4123)." },
+        { title: "Check Keith number", desc: "Fibonacci-like sequence using digits; appears in sequence." },
+        { title: "Check tech number", desc: "Even digit count, split half, sum square = original (2025 → 20+25=45→2025)." },
+        { title: "Calculate nCr", desc: "Binomial coefficient n choose r." },
+        { title: "Calculate nPr", desc: "Permutation nPr = n!/(n-r)!." },
+        { title: "Modular exponentiation", desc: "Compute (base^exp) % mod efficiently." },
+        { title: "Sieve of Eratosthenes", desc: "Find all primes up to N using simple sieve." },
+        { title: "Check circular prime", desc: "All rotations of digits produce prime numbers." },
+        { title: "Find sum of all primes up to N", desc: "Add all prime numbers ≤ N." },
+        { title: "Goldbach conjecture", desc: "Express even number as sum of two primes (simple)." },
+        { title: "Binary palindrome", desc: "Check if binary representation of a number is palindrome." },
+        { title: "Gray code of n", desc: "Compute n-th Gray code (binary reflected)." },
+        { title: "Check XOR palindrome", desc: "Check if number XOR its reverse equals zero." },
+        { title: "Find next palindrome number", desc: "Given number, find next smallest palindrome greater than it." },
+        { title: "Find previous palindrome", desc: "Find largest palindrome smaller than given number." },
+        { title: "Sum of natural numbers divisible by 3 or 5", desc: "Sum all numbers < N divisible by 3 or 5." },
+        { title: "Check Kaprekar number", desc: "Square split into two parts sum equals original (45²=2025, 20+25=45)." },
+        { title: "Find nth catalan number", desc: "Compute Catalan number using formula C_n = (1/(n+1))*binomial(2n,n)." },
+        { title: "Find integer square root", desc: "Compute integer floor of square root without sqrt function." },
+        { title: "Check perfect square", desc: "Determine if a number is perfect square." },
+        { title: "Find all perfect squares in range", desc: "List squares between A and B." },
+        { title: "Convert to any base (2-16)", desc: "Convert decimal to custom base (digits 0-9, A-F)." },
+        { title: "Convert from any base to decimal", desc: "Given base b (2-16) and string, compute decimal." },
+        { title: "Hamming distance between two numbers", desc: "Number of differing bits in binary representation." },
+        { title: "Bitwise AND range", desc: "Return bitwise AND of all numbers in [m, n] range." },
+        { title: "Find two non-repeating elements", desc: "Array where all numbers repeat twice except two unique numbers." },
+        { title: "Maximum XOR of two numbers", desc: "Given array, find maximum XOR of any two numbers." },
+        { title: "Add fractions", desc: "Given two fractions a/b + c/d, return simplified fraction." },
+        { title: "Check if number is power of base", desc: "Check if number is power of given base K." },
+        { title: "Find binary complement", desc: "Flip bits of binary representation (1's complement)." },
+        { title: "Sum of first N odd numbers", desc: "Compute sum of first N odd numbers (formula N²)." },
+        { title: "Sum of first N even numbers", desc: "Compute sum of first N even numbers." },
+        { title: "Check smith number", desc: "Sum of digits equals sum of digits of its prime factors." },
+        { title: "Find median of two sorted arrays (simplified)", desc: "Given two small sorted lists, find median." },
+        { title: "Factorial digit sum", desc: "Compute n! and sum its digits." },
+        { title: "Find smallest number with given digit sum", desc: "Given sum S and digits D, smallest number." },
+        { title: "Maximum product of digits", desc: "Given number, break digits to maximize product (simple)." },
+        { title: "Check fascinating number", desc: "Multiply by 2 and 3, concatenate results contain all digits 1-9." }
+    ];
+
+    // ensure exactly 100 items (manually crafted list length = 100)
+    if (numberProblems.length !== 100) {
+        console.warn(`Length mismatch: ${numberProblems.length}, adjusting but should be 100.`);
+        while (numberProblems.length < 100) numberProblems.push({ title: "Number property", desc: "Basic math investigation task." });
+        if (numberProblems.length > 100) numberProblems.length = 100;
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    let currentFilter = "";
+
+    function renderProblems(filterText = "") {
+        const container = document.getElementById("problemsContainer");
+        const statsSpan = document.getElementById("statsDisplay");
+        const lowerFilter = filterText.trim().toLowerCase();
+        
+        let filtered = numberProblems;
+        if (lowerFilter !== "") {
+            filtered = numberProblems.filter(prob => 
+                prob.title.toLowerCase().includes(lowerFilter) || 
+                prob.desc.toLowerCase().includes(lowerFilter)
+            );
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 3rem; background:#fef9ef; border-radius: 48px;">✨ No matching math problems — try another keyword like 'prime', 'binary', 'digits' ✨</div>`;
+            statsSpan.innerText = `🔢 0 / 100 problems match "${filterText}"`;
+            return;
+        }
+        
+        statsSpan.innerText = lowerFilter === "" ? `📊 showing all 100 problems` : `🔢 ${filtered.length} / 100 problems match "${filterText}"`;
+        
+        let html = "";
+        for (let i = 0; i < filtered.length; i++) {
+            const prob = filtered[i];
+            // Find original index (1-based) for consistent numbering
+            const originalIndex = numberProblems.findIndex(p => p.title === prob.title && p.desc === prob.desc) + 1;
+            html += `
+                <div class="card">
+                    <div class="prob-index">#${originalIndex}</div>
+                    <div class="prob-title">${escapeHtml(prob.title)}</div>
+                    <div class="prob-desc">📐 ${escapeHtml(prob.desc)}</div>
+                    <div class="tag">🔢 number system</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    // search & reset logic
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const searchInput = document.getElementById("searchInput");
+    
+    function performSearch() {
+        currentFilter = searchInput.value;
+        renderProblems(currentFilter);
+    }
+    
+    function resetSearch() {
+        searchInput.value = "";
+        currentFilter = "";
+        renderProblems("");
+    }
+    
+    searchBtn.addEventListener("click", performSearch);
+    resetBtn.addEventListener("click", resetSearch);
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") performSearch();
+    });
+    
+    renderProblems("");
+</script>
+</body>
+</html>

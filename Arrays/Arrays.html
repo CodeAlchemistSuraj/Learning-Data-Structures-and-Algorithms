@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>100 Simple DSA Problems: Array Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            font-family: 'Segoe UI', Roboto, 'Inter', system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .badge {
+            background: #2563eb;
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.25rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .desc-note {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #1e3a8a;
+            border: 1px solid #bfdbfe;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .stats {
+            background: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1e40af;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #c7d2fe;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: white;
+            padding: 0.2rem 0.2rem 0.2rem 1rem;
+            border-radius: 50px;
+            border: 1px solid #a5b4fc;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.55rem 0;
+            font-size: 0.9rem;
+            width: 220px;
+            outline: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .search-box button {
+            background: #3b82f6;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            background: #2563eb;
+        }
+
+        .reset-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1rem 1.2rem 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border: 1px solid #d9e6f5;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -12px rgba(37, 99, 235, 0.2);
+            border-color: #93c5fd;
+        }
+
+        .prob-index {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #3b82f6;
+            background: #eff6ff;
+            display: inline-block;
+            width: fit-content;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-bottom: 0.7rem;
+        }
+
+        .prob-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            border-left: 3px solid #3b82f6;
+            padding-left: 10px;
+        }
+
+        .prob-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #334155;
+            background: #f8fafc;
+            padding: 0.5rem 0.7rem;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            width: fit-content;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #5b6e8c;
+            border-top: 1px solid #cbd5e1;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .problems-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>📊 Array Adventures</h1>
+        <div class="badge">100 Very Simple DSA Problems | Array Operations</div>
+        <div class="desc-note">
+            <span>📌</span> traversal · searching · sorting · subarrays · two-pointer · prefix sums
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="stats" id="statsDisplay">📋 showing all 100 problems</div>
+        <div style="display: flex; gap: 12px;">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="filter by keyword, e.g. 'rotate', 'duplicate'">
+                <button id="searchBtn">🔍 Filter</button>
+            </div>
+            <button id="resetBtn" class="reset-btn">⟳ Reset</button>
+        </div>
+    </div>
+
+    <div id="problemsContainer" class="problems-grid"></div>
+    <div class="footer-note">
+        🧠 100 fundamental array challenges — each description is a minimal independent task. Great for building problem-solving fluency.
+    </div>
+</div>
+
+<script>
+    // 100 Very Simple DSA Problems: Array Operations
+    const arrayProblems = [
+        { title: "Find maximum element", desc: "Given an integer array, return the largest element." },
+        { title: "Find minimum element", desc: "Return the smallest element in the array." },
+        { title: "Sum of all elements", desc: "Compute the total sum of array elements." },
+        { title: "Average of array", desc: "Calculate the arithmetic mean of elements." },
+        { title: "Count even numbers", desc: "Count how many even numbers are in the array." },
+        { title: "Count odd numbers", desc: "Count how many odd numbers are in the array." },
+        { title: "Reverse the array", desc: "Reverse the order of elements in-place or return new reversed array." },
+        { title: "Check if array is sorted", desc: "Determine if array is non-decreasing." },
+        { title: "Remove duplicates (sorted array)", desc: "Remove duplicates from sorted array, return unique count." },
+        { title: "Left rotate by one", desc: "Rotate array left by 1 position." },
+        { title: "Right rotate by one", desc: "Rotate array right by 1 position." },
+        { title: "Left rotate by K positions", desc: "Rotate array left by K steps." },
+        { title: "Right rotate by K positions", desc: "Rotate array right by K steps." },
+        { title: "Find second largest", desc: "Find the second largest distinct element." },
+        { title: "Find second smallest", desc: "Find the second smallest distinct element." },
+        { title: "Move all zeros to end", desc: "Shift all zero elements to the end while preserving relative order of non-zero." },
+        { title: "Move all zeros to front", desc: "Shift zeros to the beginning of array." },
+        { title: "Linear search", desc: "Find index of target element, return -1 if not found." },
+        { title: "Binary search (sorted array)", desc: "Implement binary search to find target index." },
+        { title: "Count occurrences of element", desc: "Count how many times a given value appears." },
+        { title: "Find first occurrence", desc: "Return the first index of a target value." },
+        { title: "Find last occurrence", desc: "Return the last index of a target value." },
+        { title: "Check if array contains duplicate", desc: "Return true if any value appears at least twice." },
+        { title: "Find missing number (0 to N)", desc: "Array contains N distinct numbers from 0..N, find missing one." },
+        { title: "Find the single number", desc: "Every element appears twice except one, find that single element." },
+        { title: "Intersection of two arrays", desc: "Return common elements between two arrays." },
+        { title: "Union of two arrays", desc: "Return combined distinct elements from two arrays." },
+        { title: "Find pair with given sum", desc: "Check if any two elements sum to target." },
+        { title: "Find all pairs with given sum", desc: "Return all unique pairs that sum to target." },
+        { title: "Majority element ( > n/2 )", desc: "Find element that appears more than floor(n/2) times." },
+        { title: "Leaders in array", desc: "Elements greater than all elements to their right." },
+        { title: "Product of array except self", desc: "Return array where each element is product of all other elements." },
+        { title: "Running sum / prefix sum", desc: "Compute prefix sum array (running total)." },
+        { title: "Range sum query", desc: "Given prefix sums, answer sum between L and R." },
+        { title: "Maximum subarray sum (Kadane)", desc: "Find contiguous subarray with largest sum." },
+        { title: "Maximum product subarray", desc: "Find contiguous subarray with maximum product." },
+        { title: "Minimum subarray sum", desc: "Find contiguous subarray with smallest sum." },
+        { title: "Subarray with given sum", desc: "Find if any subarray sums to target (positive numbers)." },
+        { title: "Subarray sum equals K", desc: "Count number of subarrays summing to K (with negatives allowed)." },
+        { title: "Longest subarray with sum K", desc: "Find maximum length subarray summing to K." },
+        { title: "Best time to buy and sell stock I", desc: "Max profit from single buy-sell transaction." },
+        { title: "Best time to buy and sell stock II", desc: "Multiple transactions allowed, max profit." },
+        { title: "Sort array of 0s,1s,2s (Dutch flag)", desc: "Sort array containing only 0,1,2 without extra space." },
+        { title: "Rearrange positive and negative", desc: "Alternate positive and negative numbers." },
+        { title: "Wave array", desc: "Rearrange array in wave form: a[0]>=a[1]<=a[2]>=a[3]..." },
+        { title: "Chocolate distribution problem", desc: "Given packets, find minimum difference between max and min in any subarray of size M." },
+        { title: "Find smallest positive missing number", desc: "Return smallest missing positive integer from unsorted array." },
+        { title: "Find duplicates in array (0..N-1)", desc: "Find duplicate elements in constant space." },
+        { title: "Rotate array by 90 degrees (matrix)", desc: "Given N x N matrix, rotate in-place clockwise." },
+        { title: "Spiral traversal of matrix", desc: "Print all elements of 2D matrix in spiral order." },
+        { title: "Matrix transpose", desc: "Return transpose of given matrix." },
+        { title: "Row with maximum ones", desc: "In binary matrix, find row with most 1's." },
+        { title: "Merge two sorted arrays", desc: "Merge two sorted arrays into one sorted array." },
+        { title: "Merge two sorted arrays in-place (gap method)", desc: "Merge arr1 and arr2 of sizes m,n without extra space." },
+        { title: "Find median of two sorted arrays", desc: "Median of combined sorted arrays." },
+        { title: "Find kth smallest element", desc: "Return kth smallest element (quick select or sorting)." },
+        { title: "Find kth largest element", desc: "Return kth largest element." },
+        { title: "Top K frequent elements", desc: "Return K most frequent elements from array." },
+        { title: "Sort by frequency", desc: "Sort array elements based on descending frequency." },
+        { title: "Maximum difference (j>i) with arr[j]-arr[i]", desc: "Max difference where larger element appears after smaller." },
+        { title: "Trapping rainwater", desc: "Compute total trapped rainwater between bars." },
+        { title: "Next greater element", desc: "For each element, find next greater element to right." },
+        { title: "Next smaller element", desc: "For each element, find next smaller element to right." },
+        { title: "Previous greater element", desc: "Find previous greater element for each index." },
+        { title: "Stock span problem", desc: "For each day, count consecutive days with price <= current." },
+        { title: "Sliding window maximum", desc: "Return max of every contiguous subarray of size K." },
+        { title: "Sliding window sum", desc: "Return sum of every contiguous subarray of size K." },
+        { title: "First negative in each window of size K", desc: "Return first negative number in each sliding window." },
+        { title: "Count distinct elements in every window", desc: "Count distinct in each subarray of size K." },
+        { title: "Longest substring without repeating (array as char)", desc: "Given char array, find length of longest subarray without repeats." },
+        { title: "Check if array is palindrome", desc: "Determine if array reads same forwards and backwards." },
+        { title: "Two sum (return indices)", desc: "Return indices of two numbers that add to target." },
+        { title: "Three sum", desc: "Find all triplets that sum to zero." },
+        { title: "Four sum", desc: "Find all quadruplets that sum to target." },
+        { title: "Subarray with zero sum", desc: "Check if any subarray has sum 0." },
+        { title: "Longest subarray with zero sum", desc: "Find maximum length subarray summing to zero." },
+        { title: "Find equilibrium index", desc: "Index where left sum equals right sum." },
+        { title: "Maximum circular subarray sum", desc: "Find max sum in circular array (wrap around)." },
+        { title: "Minimize the height difference", desc: "After adding/subtracting K to each element, minimize max-min difference." },
+        { title: "Smallest subarray with sum greater than X", desc: "Find min length subarray with sum > X." },
+        { title: "Count pairs with given sum", desc: "Count number of pairs summing to target." },
+        { title: "Count triplets with sum less than target", desc: "Count triplets sum < target." },
+        { title: "Find maximum product of two integers", desc: "Find pair with maximum product." },
+        { title: "Find all elements that appear more than N/K times", desc: "Elements with frequency > n/k." },
+        { title: "Find the repeating and missing number", desc: "Array 1..N, one missing, one duplicate." },
+        { title: "Segregate even and odd", desc: "Move even numbers to left, odd to right." },
+        { title: "Segregate 0s and 1s", desc: "Move all 0s to left and 1s to right." },
+        { title: "Replace each element with product of others (division not allowed)", desc: "Without division operator." },
+        { title: "Longest consecutive sequence", desc: "Find length of longest consecutive elements sequence." },
+        { title: "Find first repeating element", desc: "Return first element that repeats." },
+        { title: "Find first non-repeating element", desc: "Return first element that occurs only once." },
+        { title: "Maximum distance between two occurrences", desc: "Max index difference for any repeated element." },
+        { title: "Array subset of another array", desc: "Check if arr2 is subset of arr1." },
+        { title: "Sort array by parity", desc: "Even numbers first, odd numbers later." },
+        { title: "Monotonic array", desc: "Check if array is monotonic (increasing or decreasing)." },
+        { title: "Find peak element", desc: "Element greater than neighbors (any peak)." },
+        { title: "Find missing and duplicate (XOR method)", desc: "Find missing and duplicate number using XOR." },
+        { title: "Shuffle the array (a1,b1,a2,b2...)", desc: "Shuffle array in form [x1,y1,x2,y2...]." },
+        { title: "Kids with greatest candies", desc: "After extra candies, check max for each kid." },
+        { title: "Number of good pairs", desc: "Count pairs (i,j) where arr[i] == arr[j] and i<j." }
+    ];
+
+    // Ensure exactly 100 problems (list is exactly 100)
+    if (arrayProblems.length !== 100) {
+        console.warn(`Length: ${arrayProblems.length}, adjusting to 100`);
+        while(arrayProblems.length < 100) arrayProblems.push({ title: "Array practice", desc: "Basic array manipulation task." });
+        if(arrayProblems.length > 100) arrayProblems.length = 100;
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    let currentFilter = "";
+
+    function renderProblems(filterText = "") {
+        const container = document.getElementById("problemsContainer");
+        const statsSpan = document.getElementById("statsDisplay");
+        const lowerFilter = filterText.trim().toLowerCase();
+        
+        let filtered = arrayProblems;
+        if (lowerFilter !== "") {
+            filtered = arrayProblems.filter(prob => 
+                prob.title.toLowerCase().includes(lowerFilter) || 
+                prob.desc.toLowerCase().includes(lowerFilter)
+            );
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 3rem; background:#fef9ef; border-radius: 48px;">✨ No matching array problems — try keywords like 'rotate', 'subarray', 'sum' ✨</div>`;
+            statsSpan.innerText = `📋 0 / 100 problems match "${filterText}"`;
+            return;
+        }
+        
+        statsSpan.innerText = lowerFilter === "" ? `📋 showing all 100 problems` : `📌 ${filtered.length} / 100 problems match "${filterText}"`;
+        
+        let html = "";
+        for (let i = 0; i < filtered.length; i++) {
+            const prob = filtered[i];
+            const originalIndex = arrayProblems.findIndex(p => p.title === prob.title && p.desc === prob.desc) + 1;
+            html += `
+                <div class="card">
+                    <div class="prob-index">#${originalIndex}</div>
+                    <div class="prob-title">${escapeHtml(prob.title)}</div>
+                    <div class="prob-desc">📌 ${escapeHtml(prob.desc)}</div>
+                    <div class="tag">📊 array operation</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const searchInput = document.getElementById("searchInput");
+    
+    function performSearch() {
+        currentFilter = searchInput.value;
+        renderProblems(currentFilter);
+    }
+    
+    function resetSearch() {
+        searchInput.value = "";
+        currentFilter = "";
+        renderProblems("");
+    }
+    
+    searchBtn.addEventListener("click", performSearch);
+    resetBtn.addEventListener("click", resetSearch);
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") performSearch();
+    });
+    
+    renderProblems("");
+</script>
+</body>
+</html>
