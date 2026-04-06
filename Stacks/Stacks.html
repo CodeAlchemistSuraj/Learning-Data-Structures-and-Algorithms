@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>100 Simple DSA Problems: Stack Operations & Patterns</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fef9e6 0%, #f5e6d3 100%);
+            font-family: 'Segoe UI', Roboto, 'Inter', system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #2c221b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #b45309, #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .badge {
+            background: #d97706;
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.25rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .desc-note {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #92400e;
+            border: 1px solid #fed7aa;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .stats {
+            background: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #b45309;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #fed7aa;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: white;
+            padding: 0.2rem 0.2rem 0.2rem 1rem;
+            border-radius: 50px;
+            border: 1px solid #fbbf24;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.55rem 0;
+            font-size: 0.9rem;
+            width: 220px;
+            outline: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .search-box button {
+            background: #f59e0b;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            background: #d97706;
+        }
+
+        .reset-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1rem 1.2rem 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border: 1px solid #ffe0b5;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -12px rgba(245, 158, 11, 0.25);
+            border-color: #fbbf24;
+        }
+
+        .prob-index {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #f59e0b;
+            background: #fff3e6;
+            display: inline-block;
+            width: fit-content;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-bottom: 0.7rem;
+        }
+
+        .prob-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2c221b;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            border-left: 3px solid #f59e0b;
+            padding-left: 10px;
+        }
+
+        .prob-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #4a3b2f;
+            background: #fefaf5;
+            padding: 0.5rem 0.7rem;
+            border-radius: 16px;
+            border: 1px solid #fde68a;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #ffedd5;
+            color: #b45309;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            width: fit-content;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #7c5e3a;
+            border-top: 1px solid #fed7aa;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .problems-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>📚 Stack Lab</h1>
+        <div class="badge">100 Simple DSA Problems | Stack Fundamentals & Applications</div>
+        <div class="desc-note">
+            <span>🥞</span> LIFO · push/pop · monotonic stack · parenthesis · next greater · evaluation · recursion simulation
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="stats" id="statsDisplay">📦 showing all 100 stack problems</div>
+        <div style="display: flex; gap: 12px;">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="filter by 'parenthesis', 'next greater', 'reverse'">
+                <button id="searchBtn">🔍 Filter</button>
+            </div>
+            <button id="resetBtn" class="reset-btn">⟳ Reset</button>
+        </div>
+    </div>
+
+    <div id="problemsContainer" class="problems-grid"></div>
+    <div class="footer-note">
+        🧠 100 stack-focused challenges — from basic push/pop to classic interview patterns (monotonic stack, expression evaluation, backtracking). Perfect for mastering LIFO logic.
+    </div>
+</div>
+
+<script>
+    // 100 unique Stack problems: core operations, parentheses, NGE, evaluation, and real-world patterns
+    const stackProblems = [
+        { title: "Push and pop", desc: "Implement basic stack with push & pop operations. Return popped element." },
+        { title: "Top / peek element", desc: "Return the top element of stack without removing it." },
+        { title: "Check if stack is empty", desc: "Return true if stack has no elements, else false." },
+        { title: "Size of stack", desc: "Return current number of elements in the stack." },
+        { title: "Push multiple elements", desc: "Push three integers and pop them in LIFO order." },
+        { title: "Clear / empty stack", desc: "Pop all elements until stack becomes empty." },
+        { title: "Reverse a string using stack", desc: "Given a string, use stack to reverse it." },
+        { title: "Check palindrome using stack", desc: "Determine if given string is palindrome (stack helper)." },
+        { title: "Balanced parentheses (round)", desc: "Check if string has balanced '(' and ')'." },
+        { title: "Balanced parentheses (multiple types)", desc: "Check for balanced '()', '{}', '[]'." },
+        { title: "Remove outermost parentheses", desc: "Remove outermost parentheses from each primitive valid string." },
+        { title: "Valid parenthesis score", desc: "Compute score of balanced parentheses string: () = 1, (A) = 2*A, AB = A+B." },
+        { title: "Minimum add to make parentheses valid", desc: "Return min insertions to balance parentheses." },
+        { title: "Longest valid parentheses", desc: "Find length of longest valid substring of parentheses." },
+        { title: "Remove all adjacent duplicates", desc: "Use stack to repeatedly remove adjacent equal letters." },
+        { title: "Remove duplicates with K adjacent", desc: "Remove k consecutive duplicate letters using stack of pairs." },
+        { title: "Baseball game (cal points)", desc: "Compute score: integer, '+', 'D', 'C' using stack." },
+        { title: "Backspace string compare", desc: "Given two strings with '#', compare if equal after backspaces (stack)." },
+        { title: "Next greater element (right)", desc: "For each element, find next greater element to the right." },
+        { title: "Next greater element (circular)", desc: "Circular array version of next greater element." },
+        { title: "Next smaller element", desc: "Find next smaller element to the right for each element." },
+        { title: "Previous greater element", desc: "Find previous greater element to the left for each index." },
+        { title: "Previous smaller element", desc: "Find previous smaller element for each array element." },
+        { title: "Daily temperatures", desc: "Given temperatures, return days until warmer day (next greater)." },
+        { title: "Stock span problem", desc: "For each day, count consecutive days with price <= today." },
+        { title: "Largest rectangle in histogram", desc: "Given bar heights, find max rectangular area." },
+        { title: "Maximal rectangle in binary matrix", desc: "Find largest rectangle containing only 1's using stack." },
+        { title: "Trapping rainwater (stack method)", desc: "Compute total trapped rainwater between bars using monotonic stack." },
+        { title: "Asteroid collision", desc: "Asteroids moving left/right, simulate collisions using stack." },
+        { title: "Evaluate reverse polish notation", desc: "Evaluate RPN expression: ['2','1','+','3','*'] => 9." },
+        { title: "Infix to postfix conversion", desc: "Convert standard infix expression to postfix using stack." },
+        { title: "Infix to prefix conversion", desc: "Convert infix expression to prefix notation." },
+        { title: "Postfix evaluation", desc: "Evaluate postfix expression with integers." },
+        { title: "Prefix evaluation", desc: "Evaluate prefix expression using stack." },
+        { title: "Basic calculator (+, -)", desc: "Evaluate expression with +, -, digits and spaces." },
+        { title: "Basic calculator with parentheses", desc: "Implement calculator supporting +, -, (, ), and spaces." },
+        { title: "Simplify path (Unix)", desc: "Given absolute path, simplify using stack." },
+        { title: "Decode string", desc: "Decode pattern '3[a2[c]]' => 'accaccacc' using stack." },
+        { title: "Exclusive time of functions", desc: "Calculate exclusive execution time for N functions with logs." },
+        { title: "Validate stack sequences", desc: "Given push and pop sequences, validate if pop order possible." },
+        { title: "Implement queue using stacks", desc: "Design queue using two stacks (amortized O(1) operations)." },
+        { title: "Implement stack using queues", desc: "Implement stack using one or two queues." },
+        { title: "Min stack (getMin in O(1))", desc: "Design stack that supports push, pop, top and retrieving minimum element." },
+        { title: "Max stack (getMax O(1))", desc: "Stack that supports push, pop, top and retrieving max element." },
+        { title: "Sort stack using recursion", desc: "Sort a stack (smallest on top) using only stack operations and recursion." },
+        { title: "Sort stack using temporary stack", desc: "Sort stack using auxiliary stack." },
+        { title: "Reverse stack using recursion", desc: "Reverse stack without extra data structure (only recursion)." },
+        { title: "Insert at bottom of stack", desc: "Given element, insert it at bottom of stack using recursion." },
+        { title: "Delete middle element of stack", desc: "Delete middle element (⌊n/2⌋th) without using extra stack." },
+        { title: "Check if stack elements are consecutive pairs", desc: "Given stack, verify if each consecutive pair has difference = 1." },
+        { title: "Find maximum frequency element in stack", desc: "Implement FreqStack that returns most frequent element on pop." },
+        { title: "Implement stack with increment operation", desc: "CustomStack supports push, pop, and inc(k,val) to add val to bottom k elements." },
+        { title: "Build an array with stack ops", desc: "Given target array and stream 1..n, use push/pop to build target." },
+        { title: "Minimum brackets reversals to fix", desc: "Minimum bracket reversals to make expression balanced." },
+        { title: "Redundant brackets", desc: "Check if expression contains redundant parentheses." },
+        { title: "Longest absolute file path", desc: "Given string with '\n\t', compute longest absolute path using stack." },
+        { title: "Car fleet (stack monotonic)", desc: "Cars to target: compute number of car fleets using monotonic stack." },
+        { title: "Sum of subarray minimums", desc: "Sum of min(b) for every contiguous subarray using monotonic stack." },
+        { title: "Sum of subarray ranges", desc: "Sum of (max - min) over all subarrays using monotonic stacks." },
+        { title: "Number of visible people in queue", desc: "Count people visible to right (monotonic stack)." },
+        { title: "Final prices with discount", desc: "Discount = next smaller or equal price; subtract from current." },
+        { title: "Next greater element II (circular)", desc: "Return next greater elements for circular array." },
+        { title: "Minimum number of swaps to make string balanced", desc: "Swaps required to balance brackets using stack." },
+        { title: "Check if word is valid after substitutions", desc: "Check if string can be formed by inserting 'abc' repeatedly (stack)." },
+        { title: "Remove K digits to get smallest number", desc: "Remove k digits from string to form smallest possible number (monotonic stack)." },
+        { title: "Find most competitive subsequence", desc: "Find k-length subsequence that's lexicographically smallest (monotonic stack)." },
+        { title: "Pattern 132", desc: "Check if there exists triplet i<j<k with a[i] < a[k] < a[j] (stack)." },
+        { title: "Stock market span variation", desc: "Given consecutive stock prices, compute span for each day using stack." },
+        { title: "Maximum width ramp", desc: "Find max j-i with A[i] <= A[j] using decreasing stack." },
+        { title: "Online stock span", desc: "Stream of prices, each call returns span up to current day." },
+        { title: "Remove duplicate letters (lex smallest)", desc: "Remove duplicate letters to get smallest lex order (monotonic stack)." },
+        { title: "Smallest subsequence of distinct chars", desc: "Return lexicographically smallest subsequence with distinct characters." },
+        { title: "Score of parentheses", desc: "Compute score using stack: () = 1, (A) = 2*A, AB = A+B." },
+        { title: "Parse boolean expression", desc: "Evaluate boolean expression with 't','f','&','|','!' using stack." },
+        { title: "Check if parentheses can be valid", desc: "Given string with wildcard '*' as '(' or ')' or empty, check validity." },
+        { title: "Remove invalid parentheses (BFS + stack)", desc: "Find valid parentheses string after removing minimal invalid brackets." },
+        { title: "Validate preorder traversal of BST", desc: "Use stack to validate if given preorder is from BST." },
+        { title: "Verify preorder serialization of binary tree", desc: "Check if string like '9,3,4,#,#,1,#,#,2,#,6,#,#' is valid preorder." },
+        { title: "Flatten nested list iterator", desc: "Implement iterator to flatten nested list using stack." },
+        { title: "Ternary expression parser", desc: "Parse expression 'F?1:2?3:4' using stack." },
+        { title: "Make the string great", desc: "Remove adjacent characters that are same letter but opposite case." },
+        { title: "Minimum insertions to balance parentheses with '*?'", desc: "Return min insertions for balanced parentheses with advanced rules." },
+        { title: "Celebrity problem (stack elimination)", desc: "Find celebrity in O(n) using stack elimination." },
+        { title: "Maximum depth of parentheses", desc: "Return maximum nesting depth of parentheses in expression." },
+        { title: "Count nested parentheses", desc: "Count number of valid parentheses substrings at depth 1." },
+        { title: "Crawler log folder (stack simulation)", desc: "Given logs ['d1/','../','./'] compute final folder depth." },
+        { title: "Can place flowers (stack-like simulation)", desc: "Determine if n flowers can be placed with no adjacent (consecutive empty slots check)." },
+        { title: "Find the most frequent element after each query", desc: "Push elements, query frequency max using stack + hashmap." },
+        { title: "Minimum cost tree from leaf values", desc: "Find min cost to build tree (monotonic stack greedy)." },
+        { title: "Next greater node in linked list", desc: "Given linked list, compute next greater for each node using stack." },
+        { title: "Sum of subarray minimums (optimized)", desc: "Compute sum using monotonic stack to count contributions." },
+        { title: "Maximum sum circular subarray (stack based)", desc: "Alternative method using dequeue, but focus on monotonic stack variant." },
+        { title: "Find building where person can see ocean", desc: "Given heights, find buildings with ocean view from right (monotonic stack)." },
+        { title: "Count of smaller numbers after self", desc: "For each index, count elements smaller than self to the right (BST or stack)." },
+        { title: "Replace elements with greatest on right", desc: "Using stack for next greater variation." },
+        { title: "Check if expression has duplicate brackets", desc: "Duplicate brackets detection using stack." },
+        { title: "Transform prefix to postfix", desc: "Convert prefix expression to postfix using stack." },
+        { title: "Transform postfix to prefix", desc: "Convert postfix to prefix expression using stack." },
+        { title: "Evaluate expression with variables", desc: "Given map of variables, evaluate expression using stack." },
+        { title: "Minimum steps to make parentheses valid (flip)", desc: "Minimum flips to make parentheses string balanced." },
+        { title: "Remove comments from code (stack of states)", desc: "Strip C-style comments using stack/state machine." }
+    ];
+
+    // Ensure exactly 100 items (if any extra, slice, if missing, add fallback placeholders)
+    if (stackProblems.length !== 100) {
+        console.warn(`Stack problems length: ${stackProblems.length}, adjusting to 100.`);
+        while(stackProblems.length < 100) {
+            stackProblems.push({ title: "Stack practice", desc: "Manipulate stack to push and pop elements in correct order." });
+        }
+        if(stackProblems.length > 100) stackProblems.length = 100;
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    let currentFilter = "";
+
+    function renderProblems(filterText = "") {
+        const container = document.getElementById("problemsContainer");
+        const statsSpan = document.getElementById("statsDisplay");
+        const lowerFilter = filterText.trim().toLowerCase();
+        
+        let filtered = stackProblems;
+        if (lowerFilter !== "") {
+            filtered = stackProblems.filter(prob => 
+                prob.title.toLowerCase().includes(lowerFilter) || 
+                prob.desc.toLowerCase().includes(lowerFilter)
+            );
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 3rem; background:#fef3e8; border-radius: 48px;">🔍 No matching stack problems — try keywords like 'parentheses', 'next greater', 'reverse', 'min stack' 🔍</div>`;
+            statsSpan.innerText = `📭 0 / 100 problems match "${filterText}"`;
+            return;
+        }
+        
+        statsSpan.innerText = lowerFilter === "" ? `📚 showing all 100 stack problems` : `🥞 ${filtered.length} / 100 problems match "${filterText}"`;
+        
+        let html = "";
+        for (let i = 0; i < filtered.length; i++) {
+            const prob = filtered[i];
+            // Find original index (1-based) from full stackProblems for consistent numbering
+            const originalIndex = stackProblems.findIndex(p => p.title === prob.title && p.desc === prob.desc) + 1;
+            html += `
+                <div class="card">
+                    <div class="prob-index">#${originalIndex}</div>
+                    <div class="prob-title">${escapeHtml(prob.title)}</div>
+                    <div class="prob-desc">🥞 ${escapeHtml(prob.desc)}</div>
+                    <div class="tag">📚 LIFO / monotonic</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const searchInput = document.getElementById("searchInput");
+    
+    function performSearch() {
+        currentFilter = searchInput.value;
+        renderProblems(currentFilter);
+    }
+    
+    function resetSearch() {
+        searchInput.value = "";
+        currentFilter = "";
+        renderProblems("");
+    }
+    
+    searchBtn.addEventListener("click", performSearch);
+    resetBtn.addEventListener("click", resetSearch);
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") performSearch();
+    });
+    
+    renderProblems("");
+</script>
+</body>
+</html>

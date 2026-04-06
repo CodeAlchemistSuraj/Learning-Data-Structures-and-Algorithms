@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>100 Very Simple DSA Problems: Queue Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f7f0 0%, #d1fae5 100%);
+            font-family: 'Segoe UI', Roboto, 'Inter', system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #064e3b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .badge {
+            background: #0d9488;
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.25rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .desc-note {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #115e59;
+            border: 1px solid #99f6e4;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .stats {
+            background: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #0f766e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #5eead4;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: white;
+            padding: 0.2rem 0.2rem 0.2rem 1rem;
+            border-radius: 50px;
+            border: 1px solid #2dd4bf;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.55rem 0;
+            font-size: 0.9rem;
+            width: 220px;
+            outline: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .search-box button {
+            background: #14b8a6;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            background: #0d9488;
+        }
+
+        .reset-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1rem 1.2rem 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border: 1px solid #b4f0e6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -12px rgba(20, 184, 166, 0.25);
+            border-color: #2dd4bf;
+        }
+
+        .prob-index {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #14b8a6;
+            background: #ecfdf5;
+            display: inline-block;
+            width: fit-content;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-bottom: 0.7rem;
+        }
+
+        .prob-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #064e3b;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            border-left: 3px solid #14b8a6;
+            padding-left: 10px;
+        }
+
+        .prob-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #2d6a4f;
+            background: #f4fdfa;
+            padding: 0.5rem 0.7rem;
+            border-radius: 16px;
+            border: 1px solid #ccfbf1;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #ccfbf1;
+            color: #0f766e;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            width: fit-content;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #2c7a6e;
+            border-top: 1px solid #99f6e4;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .problems-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>🎢 Queue Basics</h1>
+        <div class="badge">100 Very Simple DSA Problems | Queue Operations</div>
+        <div class="desc-note">
+            <span>🎯</span> enqueue · dequeue · front · rear · circular queue · deque · basic applications
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="stats" id="statsDisplay">🎢 showing all 100 problems</div>
+        <div style="display: flex; gap: 12px;">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="filter by 'circular', 'deque', 'reverse'">
+                <button id="searchBtn">🔍 Filter</button>
+            </div>
+            <button id="resetBtn" class="reset-btn">⟳ Reset</button>
+        </div>
+    </div>
+
+    <div id="problemsContainer" class="problems-grid"></div>
+    <div class="footer-note">
+        🧠 100 fundamental queue challenges — each description is a minimal independent task. Great for building problem-solving fluency from zero.
+    </div>
+</div>
+
+<script>
+    // 100 VERY SIMPLE Queue Problems - Level 0 friendly
+    const queueProblems = [
+        { title: "Enqueue element", desc: "Add an integer to the end of the queue." },
+        { title: "Dequeue element", desc: "Remove and return the front element from the queue." },
+        { title: "Front / Peek element", desc: "Return the front element without removing it." },
+        { title: "Check if queue is empty", desc: "Return true if queue has no elements, else false." },
+        { title: "Size of queue", desc: "Return the number of elements currently in the queue." },
+        { title: "Clear entire queue", desc: "Remove all elements from the queue." },
+        { title: "Enqueue multiple elements", desc: "Add 5 numbers to queue and display them." },
+        { title: "Dequeue until empty", desc: "Keep removing elements until queue becomes empty." },
+        { title: "Print all elements", desc: "Display all elements in the queue from front to rear." },
+        { title: "Implement queue using array", desc: "Create a queue with fixed-size array (basic implementation)." },
+        { title: "Implement queue using linked list", desc: "Create a queue using singly linked list nodes." },
+        { title: "Circular queue basic", desc: "Implement a circular queue that reuses empty slots." },
+        { title: "Check if circular queue is full", desc: "For circular queue, detect when it reaches capacity." },
+        { title: "Circular queue enqueue", desc: "Add element to circular queue with wrap-around logic." },
+        { title: "Circular queue dequeue", desc: "Remove element from circular queue with front pointer update." },
+        { title: "Rear element in queue", desc: "Return the last element in the queue without removing." },
+        { title: "Implement deque (double-ended queue)", desc: "Support adding/removing from both ends." },
+        { title: "Deque - add front", desc: "Add an element to the front of a deque." },
+        { title: "Deque - add rear", desc: "Add an element to the rear of a deque." },
+        { title: "Deque - remove front", desc: "Remove and return element from front of deque." },
+        { title: "Deque - remove rear", desc: "Remove and return element from rear of deque." },
+        { title: "Reverse a queue", desc: "Reverse the order of elements in a queue (using stack or recursion)." },
+        { title: "Reverse first K elements", desc: "Reverse only the first K elements of the queue." },
+        { title: "Implement stack using two queues", desc: "Use two queues to simulate LIFO stack behavior." },
+        { title: "Implement queue using two stacks", desc: "Use two stacks to simulate FIFO queue behavior." },
+        { title: "Check if two queues are equal", desc: "Compare two queues to see if they have same elements in same order." },
+        { title: "Copy one queue to another", desc: "Create a copy of a queue with same elements." },
+        { title: "Find maximum element in queue", desc: "Traverse queue and return the largest value." },
+        { title: "Find minimum element in queue", desc: "Traverse queue and return the smallest value." },
+        { title: "Search for element in queue", desc: "Check if a given value exists in the queue." },
+        { title: "Count occurrences in queue", desc: "Count how many times a given value appears." },
+        { title: "Sum of all elements", desc: "Add all numbers in the queue and return total." },
+        { title: "Average of queue elements", desc: "Calculate the arithmetic mean of queue values." },
+        { title: "Remove all occurrences of value", desc: "Delete every instance of a specific element from queue." },
+        { title: "Remove duplicates from queue", desc: "Keep only first occurrence of each value." },
+        { title: "Move front to rear", desc: "Take front element and move it to the back of queue." },
+        { title: "Move rear to front", desc: "Take last element and move it to the front." },
+        { title: "Swap first and last element", desc: "Exchange the front and rear elements of queue." },
+        { title: "Rotate queue left by 1", desc: "Move first element to the end (left rotation)." },
+        { title: "Rotate queue right by 1", desc: "Move last element to the front (right rotation)." },
+        { title: "Rotate queue left by K positions", desc: "Perform left rotation K times." },
+        { title: "Rotate queue right by K positions", desc: "Perform right rotation K times." },
+        { title: "Sort queue (ascending)", desc: "Arrange queue elements from smallest to largest." },
+        { title: "Sort queue (descending)", desc: "Arrange queue elements from largest to smallest." },
+        { title: "Check if queue is sorted", desc: "Verify if elements are in non-decreasing order." },
+        { title: "Merge two queues", desc: "Combine two queues into one (alternating or appending)." },
+        { title: "Interleave first and second half", desc: "Queue [1,2,3,4] → [1,3,2,4]." },
+        { title: "Palindrome check using queue", desc: "Check if queue reads same forward and backward." },
+        { title: "Generate binary numbers 1 to N", desc: "Use queue to generate binary strings from '1' to N." },
+        { title: "Queue reversal using recursion", desc: "Reverse queue without extra data structure (only recursion)." },
+        { title: "Sliding window maximum (basic)", desc: "Find max in each subarray of size K (simple O(n*k) version)." },
+        { title: "Sliding window sum", desc: "Compute sum of each contiguous subarray of size K." },
+        { title: "First negative in window of size K", desc: "Return first negative number in each sliding window." },
+        { title: "Recent counter (last 3000ms)", desc: "Implement ping() that counts recent requests in last 3000ms using queue." },
+        { title: "Moving average of last K elements", desc: "Given stream, compute average of last K values." },
+        { title: "Task scheduler - simple FIFO", desc: "Process tasks in order, each taking 1 unit time." },
+        { title: "Ticket counter simulation", desc: "People in queue, each takes 1 ticket, return time for position K." },
+        { title: "Students and sandwiches", desc: "Queue of students and sandwiches, count unable to eat." },
+        { title: "Implement circular queue with array", desc: "Full working circular queue with front/rear pointers." },
+        { title: "Design circular deque", desc: "Implement double-ended queue with fixed capacity." },
+        { title: "Level order traversal (BFS basics)", desc: "Print binary tree level by level using queue." },
+        { title: "Binary tree right side view", desc: "Return rightmost node at each level using BFS queue." },
+        { title: "Average of levels in binary tree", desc: "Compute average value per level using BFS queue." },
+        { title: "Minimum depth of binary tree", desc: "Find shortest path to leaf using BFS queue." },
+        { title: "Maximum depth of binary tree (BFS)", desc: "Count levels using queue level order." },
+        { title: "BFS of graph", desc: "Traverse graph level by level using queue." },
+        { title: "Check bipartite graph (BFS)", desc: "Verify if graph can be colored with 2 colors using queue." },
+        { title: "Number of islands (BFS)", desc: "Count islands in grid using BFS with queue." },
+        { title: "Rotting oranges (BFS)", desc: "Minutes until all oranges rot using multi-source BFS." },
+        { title: "Flood fill (BFS version)", desc: "Fill connected region using queue instead of recursion." },
+        { title: "Shortest path in binary matrix (BFS)", desc: "Find shortest clear path using BFS queue." },
+        { title: "01 Matrix (distance to nearest zero)", desc: "Compute distances using BFS queue." },
+        { title: "Nearest exit from entrance (BFS)", desc: "Find steps to nearest exit in maze using BFS queue." },
+        { title: "Implement priority queue (basic)", desc: "Create queue where highest priority element dequeues first." },
+        { title: "Kth largest element in stream", desc: "Maintain K largest elements using min-heap (priority queue)." },
+        { title: "Last stone weight", desc: "Simulate stone smash using max-heap (priority queue)." },
+        { title: "Top K frequent elements", desc: "Find K most frequent numbers using bucket/priority queue." },
+        { title: "Sort characters by frequency", desc: "Arrange string by descending character frequency." },
+        { title: "Reorganize string", desc: "Rearrange so no two adjacent characters are same." },
+        { title: "Task scheduler with cooldown", desc: "Calculate minimum intervals needed." },
+        { title: "K closest points to origin", desc: "Find K points with smallest distance using max-heap." },
+        { title: "Merge K sorted lists (basic)", desc: "Use min-heap to merge K sorted arrays." },
+        { title: "Find median from data stream", desc: "Maintain median using two heaps." },
+        { title: "Queue using two stacks - enqueue", desc: "Implement enqueue operation with two stacks." },
+        { title: "Queue using two stacks - dequeue", desc: "Implement dequeue operation with two stacks." },
+        { title: "Stack using two queues - push", desc: "Implement push operation with two queues." },
+        { title: "Stack using two queues - pop", desc: "Implement pop operation with two queues." },
+        { title: "Circular tour (gas station)", desc: "Find starting point to complete circuit." },
+        { title: "First circular tour to refuel", desc: "Find index where you can start and complete circle." },
+        { title: "Queue reconstruction by height", desc: "Reconstruct queue based on (height, k) pairs." },
+        { title: "Time needed to buy tickets", desc: "Calculate time for person at position K to finish buying." },
+        { title: "Number of students unable to eat", desc: "Count students who can't get their preferred sandwich." },
+        { title: "First unique character in stream", desc: "Find first non-repeating character after each insertion." },
+        { title: "Implement deque using array", desc: "Double-ended queue with fixed array." },
+        { title: "Implement deque using linked list", desc: "Double-ended queue with doubly linked list." },
+        { title: "Check if queue is palindrome", desc: "Verify if queue elements read same forward and backward." },
+        { title: "Remove middle element", desc: "Delete the middle element of queue (⌊n/2⌋th)." },
+        { title: "Find middle element", desc: "Return the middle element without removing." }
+    ];
+
+    // Ensure exactly 100
+    if (queueProblems.length !== 100) {
+        while(queueProblems.length < 100) {
+            queueProblems.push({ title: "Queue practice", desc: "Practice basic queue operations like enqueue and dequeue." });
+        }
+        if(queueProblems.length > 100) queueProblems.length = 100;
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    let currentFilter = "";
+
+    function renderProblems(filterText = "") {
+        const container = document.getElementById("problemsContainer");
+        const statsSpan = document.getElementById("statsDisplay");
+        const lowerFilter = filterText.trim().toLowerCase();
+        
+        let filtered = queueProblems;
+        if (lowerFilter !== "") {
+            filtered = queueProblems.filter(prob => 
+                prob.title.toLowerCase().includes(lowerFilter) || 
+                prob.desc.toLowerCase().includes(lowerFilter)
+            );
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 3rem; background:#e6fffa; border-radius: 48px;">🔍 No matching problems — try 'circular', 'deque', 'reverse' 🔍</div>`;
+            statsSpan.innerText = `🎢 0 / 100 problems match "${filterText}"`;
+            return;
+        }
+        
+        statsSpan.innerText = lowerFilter === "" ? `🎢 showing all 100 problems` : `🎯 ${filtered.length} / 100 problems match "${filterText}"`;
+        
+        let html = "";
+        for (let i = 0; i < filtered.length; i++) {
+            const prob = filtered[i];
+            const originalIndex = queueProblems.findIndex(p => p.title === prob.title && p.desc === prob.desc) + 1;
+            html += `
+                <div class="card">
+                    <div class="prob-index">#${originalIndex}</div>
+                    <div class="prob-title">${escapeHtml(prob.title)}</div>
+                    <div class="prob-desc">🎯 ${escapeHtml(prob.desc)}</div>
+                    <div class="tag">⏳ queue operation</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const searchInput = document.getElementById("searchInput");
+    
+    function performSearch() {
+        currentFilter = searchInput.value;
+        renderProblems(currentFilter);
+    }
+    
+    function resetSearch() {
+        searchInput.value = "";
+        currentFilter = "";
+        renderProblems("");
+    }
+    
+    searchBtn.addEventListener("click", performSearch);
+    resetBtn.addEventListener("click", resetSearch);
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") performSearch();
+    });
+    
+    renderProblems("");
+</script>
+</body>
+</html>

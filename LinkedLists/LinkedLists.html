@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>100 Very Simple DSA Problems: Linked List Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            font-family: 'Segoe UI', Roboto, 'Inter', system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #78350f;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #b45309, #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .badge {
+            background: #d97706;
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.25rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .desc-note {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #92400e;
+            border: 1px solid #fed7aa;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .stats {
+            background: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #b45309;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #fed7aa;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: white;
+            padding: 0.2rem 0.2rem 0.2rem 1rem;
+            border-radius: 50px;
+            border: 1px solid #fbbf24;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.55rem 0;
+            font-size: 0.9rem;
+            width: 220px;
+            outline: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .search-box button {
+            background: #f59e0b;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            background: #d97706;
+        }
+
+        .reset-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1rem 1.2rem 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border: 1px solid #fde68a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -12px rgba(245, 158, 11, 0.25);
+            border-color: #fbbf24;
+        }
+
+        .prob-index {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #f59e0b;
+            background: #fffbeb;
+            display: inline-block;
+            width: fit-content;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-bottom: 0.7rem;
+        }
+
+        .prob-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #78350f;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            border-left: 3px solid #f59e0b;
+            padding-left: 10px;
+        }
+
+        .prob-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #92400e;
+            background: #fffbeb;
+            padding: 0.5rem 0.7rem;
+            border-radius: 16px;
+            border: 1px solid #fde68a;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #fef3c7;
+            color: #b45309;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            width: fit-content;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #b45309;
+            border-top: 1px solid #fed7aa;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .problems-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>🔗 Linked List Fundamentals</h1>
+        <div class="badge">100 Very Simple DSA Problems | Linked List Operations</div>
+        <div class="desc-note">
+            <span>⛓️</span> traversal · insertion · deletion · reversal · searching · merging · cycle detection · doubly linked list
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="stats" id="statsDisplay">🔗 showing all 100 problems</div>
+        <div style="display: flex; gap: 12px;">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="filter by 'reverse', 'delete', 'cycle', 'doubly'">
+                <button id="searchBtn">🔍 Filter</button>
+            </div>
+            <button id="resetBtn" class="reset-btn">⟳ Reset</button>
+        </div>
+    </div>
+
+    <div id="problemsContainer" class="problems-grid"></div>
+    <div class="footer-note">
+        🧠 100 fundamental linked list challenges — each description is a minimal independent task. Perfect for building confidence with pointers and node structures.
+    </div>
+</div>
+
+<script>
+    // 100 VERY SIMPLE Linked List Problems - Level 0 friendly
+    const linkedListProblems = [
+        { title: "Create a node", desc: "Define a Node class with data and next pointer." },
+        { title: "Create empty linked list", desc: "Initialize an empty linked list with head = null." },
+        { title: "Insert at beginning", desc: "Add a new node at the start of the linked list." },
+        { title: "Insert at end", desc: "Add a new node at the end of the linked list." },
+        { title: "Insert at given position", desc: "Insert a node at specific index (0-based)." },
+        { title: "Delete from beginning", desc: "Remove the first node and return its value." },
+        { title: "Delete from end", desc: "Remove the last node from the linked list." },
+        { title: "Delete at given position", desc: "Remove node at specific index." },
+        { title: "Delete by value", desc: "Remove first occurrence of a given value." },
+        { title: "Search for element", desc: "Check if a value exists in the linked list." },
+        { title: "Find index of element", desc: "Return position (0-based) of first occurrence of value." },
+        { title: "Get element at index", desc: "Return value at specific position." },
+        { title: "Update element at index", desc: "Change value of node at given position." },
+        { title: "Length of linked list", desc: "Count number of nodes in the list." },
+        { title: "Check if list is empty", desc: "Return true if head is null." },
+        { title: "Print all elements", desc: "Traverse and display all node values." },
+        { title: "Print list in reverse order", desc: "Display values from last node to first." },
+        { title: "Find middle node", desc: "Return the middle node (if even length, return first middle)." },
+        { title: "Find nth node from end", desc: "Return node at position n from last (1-indexed)." },
+        { title: "Reverse linked list", desc: "Reverse the entire linked list in-place." },
+        { title: "Reverse linked list recursively", desc: "Use recursion to reverse the list." },
+        { title: "Detect cycle (Floyd's algorithm)", desc: "Check if linked list has a cycle using slow/fast pointers." },
+        { title: "Find cycle start node", desc: "Return node where cycle begins, if cycle exists." },
+        { title: "Remove cycle", desc: "Detect and remove cycle from linked list." },
+        { title: "Find intersection point", desc: "Find node where two linked lists intersect." },
+        { title: "Check if two lists are identical", desc: "Compare two linked lists for same values and order." },
+        { title: "Merge two sorted linked lists", desc: "Combine two sorted lists into one sorted list." },
+        { title: "Remove duplicates from sorted list", desc: "Delete duplicate values from sorted linked list." },
+        { title: "Remove duplicates from unsorted list", desc: "Remove duplicates using set or two loops." },
+        { title: "Move last node to front", desc: "Take the last node and make it the new head." },
+        { title: "Swap two nodes by value", desc: "Exchange positions of two given values." },
+        { title: "Swap two nodes by position", desc: "Swap nodes at given indices." },
+        { title: "Rotate list left by K", desc: "Move first K nodes to the end." },
+        { title: "Rotate list right by K", desc: "Move last K nodes to the front." },
+        { title: "Palindrome check", desc: "Determine if linked list reads same forward and backward." },
+        { title: "Remove nth node from end", desc: "Delete node at position n from last (1 pass)." },
+        { title: "Delete entire list", desc: "Free all nodes and set head to null." },
+        { title: "Count occurrences of value", desc: "Count how many times a given value appears." },
+        { title: "Find maximum value", desc: "Return largest data in the linked list." },
+        { title: "Find minimum value", desc: "Return smallest data in the linked list." },
+        { title: "Sum of all elements", desc: "Add all node values and return total." },
+        { title: "Average of elements", desc: "Calculate mean of all node values." },
+        { title: "Even and odd count", desc: "Count number of even and odd values." },
+        { title: "Remove all occurrences of value", desc: "Delete every node with given value." },
+        { title: "Remove nodes with even values", desc: "Delete all nodes containing even numbers." },
+        { title: "Remove nodes with odd values", desc: "Delete all nodes containing odd numbers." },
+        { title: "Remove nodes in range", desc: "Delete nodes with values between low and high." },
+        { title: "Insert in sorted list", desc: "Insert a value maintaining sorted order." },
+        { title: "Sort linked list (bubble sort)", desc: "Sort the list using simple bubble sort." },
+        { title: "Sort linked list (merge sort)", desc: "Apply merge sort to linked list." },
+        { title: "Segregate even and odd nodes", desc: "Rearrange so even values come before odd." },
+        { title: "Segregate 0s, 1s, 2s", desc: "Sort list containing only 0,1,2." },
+        { title: "Remove every Kth node", desc: "Delete node at positions K, 2K, 3K, etc." },
+        { title: "Delete alternate nodes", desc: "Remove every second node in the list." },
+        { title: "Keep only alternate nodes", desc: "Remove odd-indexed nodes (1st, 3rd, 5th...)." },
+        { title: "Split list into two halves", desc: "Divide list into two equal halves." },
+        { title: "Alternate merge of two lists", desc: "Take nodes alternately from two lists." },
+        { title: "Add two numbers (as lists)", desc: "Two lists represent digits, sum them." },
+        { title: "Find kth node from beginning", desc: "Return node at index K." },
+        { title: "Find kth node from end (two pointers)", desc: "Use two pointers to find node from last." },
+        { title: "Check if list is sorted", desc: "Verify if list is in non-decreasing order." },
+        { title: "Pairwise swap nodes", desc: "Swap nodes in pairs (1st-2nd, 3rd-4th...)." },
+        { title: "Reverse in groups of K", desc: "Reverse every K nodes in the list." },
+        { title: "Flatten a multilevel list", desc: "Flatten a linked list with child pointers." },
+        { title: "Clone linked list with random pointer", desc: "Deep copy list with random pointers." },
+        { title: "Create doubly linked list node", desc: "Define node with prev and next pointers." },
+        { title: "Insert at beginning (doubly)", desc: "Add node at front of doubly linked list." },
+        { title: "Insert at end (doubly)", desc: "Add node at back of doubly linked list." },
+        { title: "Delete from beginning (doubly)", desc: "Remove first node from doubly list." },
+        { title: "Delete from end (doubly)", desc: "Remove last node from doubly list." },
+        { title: "Insert at position (doubly)", desc: "Add node at specific index in doubly list." },
+        { title: "Delete at position (doubly)", desc: "Remove node from given index in doubly list." },
+        { title: "Reverse doubly linked list", desc: "Reverse the entire doubly linked list." },
+        { title: "Traverse forward (doubly)", desc: "Print doubly list from head to tail." },
+        { title: "Traverse backward (doubly)", desc: "Print doubly list from tail to head." },
+        { title: "Search in doubly list", desc: "Find if value exists in doubly linked list." },
+        { title: "Length of doubly list", desc: "Count nodes in doubly linked list." },
+        { title: "Create circular linked list", desc: "Make last node point back to head." },
+        { title: "Insert in circular list", desc: "Add node to circular linked list." },
+        { title: "Delete from circular list", desc: "Remove node from circular linked list." },
+        { title: "Traverse circular list", desc: "Print circular list until you return to head." },
+        { title: "Check if list is circular", desc: "Determine if linked list is circular." },
+        { title: "Split circular list into two", desc: "Divide circular list into two halves." },
+        { title: "Josephus problem (circular)", desc: "Eliminate every Kth person in circle." },
+        { title: "Merge two sorted doubly lists", desc: "Combine two sorted doubly linked lists." },
+        { title: "Remove duplicates from sorted doubly list", desc: "Delete duplicate values from sorted doubly list." },
+        { title: "Find pair with sum (sorted doubly)", desc: "Find two nodes that sum to target." },
+        { title: "Rotate doubly list by K", desc: "Rotate doubly linked list left by K positions." },
+        { title: "Delete node with only pointer", desc: "Delete a node given only its reference (no head)." },
+        { title: "Insert node before given node", desc: "Add new node before a specified node." },
+        { title: "Insert node after given node", desc: "Add new node after a specified node." },
+        { title: "Find middle node (two pointers)", desc: "Use slow/fast pointer to find middle." },
+        { title: "Detect cycle using hash set", desc: "Use visited set to detect cycle." },
+        { title: "Find length of cycle", desc: "Count nodes in the cycle if present." },
+        { title: "Remove duplicates from sorted list II", desc: "Delete all nodes that have duplicates." },
+        { title: "Partition list around value X", desc: "Rearrange nodes: less than X before, greater/equal after." },
+        { title: "Odd even linked list", desc: "Group odd-indexed nodes then even-indexed nodes." },
+        { title: "Reorder list (L0→Ln→L1→Ln-1...)", desc: "Rearrange list in alternating fashion." },
+        { title: "Is palindrome (O(1) space)", desc: "Check palindrome without extra space." }
+    ];
+
+    // Ensure exactly 100 problems
+    if (linkedListProblems.length !== 100) {
+        console.warn(`Length: ${linkedListProblems.length}, adjusting to 100`);
+        while(linkedListProblems.length < 100) {
+            linkedListProblems.push({ title: "Linked list practice", desc: "Practice basic linked list operations like traversal and insertion." });
+        }
+        if(linkedListProblems.length > 100) linkedListProblems.length = 100;
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    let currentFilter = "";
+
+    function renderProblems(filterText = "") {
+        const container = document.getElementById("problemsContainer");
+        const statsSpan = document.getElementById("statsDisplay");
+        const lowerFilter = filterText.trim().toLowerCase();
+        
+        let filtered = linkedListProblems;
+        if (lowerFilter !== "") {
+            filtered = linkedListProblems.filter(prob => 
+                prob.title.toLowerCase().includes(lowerFilter) || 
+                prob.desc.toLowerCase().includes(lowerFilter)
+            );
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 3rem; background:#fffbeb; border-radius: 48px;">🔍 No matching linked list problems — try 'reverse', 'delete', 'cycle', 'doubly' 🔍</div>`;
+            statsSpan.innerText = `🔗 0 / 100 problems match "${filterText}"`;
+            return;
+        }
+        
+        statsSpan.innerText = lowerFilter === "" ? `🔗 showing all 100 problems` : `⛓️ ${filtered.length} / 100 problems match "${filterText}"`;
+        
+        let html = "";
+        for (let i = 0; i < filtered.length; i++) {
+            const prob = filtered[i];
+            const originalIndex = linkedListProblems.findIndex(p => p.title === prob.title && p.desc === prob.desc) + 1;
+            html += `
+                <div class="card">
+                    <div class="prob-index">#${originalIndex}</div>
+                    <div class="prob-title">${escapeHtml(prob.title)}</div>
+                    <div class="prob-desc">⛓️ ${escapeHtml(prob.desc)}</div>
+                    <div class="tag">🔗 linked list operation</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const searchInput = document.getElementById("searchInput");
+    
+    function performSearch() {
+        currentFilter = searchInput.value;
+        renderProblems(currentFilter);
+    }
+    
+    function resetSearch() {
+        searchInput.value = "";
+        currentFilter = "";
+        renderProblems("");
+    }
+    
+    searchBtn.addEventListener("click", performSearch);
+    resetBtn.addEventListener("click", resetSearch);
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") performSearch();
+    });
+    
+    renderProblems("");
+</script>
+</body>
+</html>
