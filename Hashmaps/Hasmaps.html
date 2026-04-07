@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>100 Very Simple DSA Problems: HashMap / Dictionary Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            font-family: 'Segoe UI', Roboto, 'Inter', system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #0c4a6e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #0369a1, #0ea5e9);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .badge {
+            background: #0284c7;
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.25rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .desc-note {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #075985;
+            border: 1px solid #7dd3fc;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .stats {
+            background: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #0369a1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #7dd3fc;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: white;
+            padding: 0.2rem 0.2rem 0.2rem 1rem;
+            border-radius: 50px;
+            border: 1px solid #38bdf8;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 0.55rem 0;
+            font-size: 0.9rem;
+            width: 220px;
+            outline: none;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .search-box button {
+            background: #0ea5e9;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            background: #0284c7;
+        }
+
+        .reset-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1rem 1.2rem 1.2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border: 1px solid #bae6fd;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -12px rgba(14, 165, 233, 0.25);
+            border-color: #7dd3fc;
+        }
+
+        .prob-index {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #0ea5e9;
+            background: #f0f9ff;
+            display: inline-block;
+            width: fit-content;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-bottom: 0.7rem;
+        }
+
+        .prob-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0c4a6e;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            border-left: 3px solid #0ea5e9;
+            padding-left: 10px;
+        }
+
+        .prob-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+            color: #075985;
+            background: #f0f9ff;
+            padding: 0.5rem 0.7rem;
+            border-radius: 16px;
+            border: 1px solid #bae6fd;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            width: fit-content;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #0c4a6e;
+            border-top: 1px solid #7dd3fc;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .problems-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>🗺️ HashMap Adventures</h1>
+        <div class="badge">100 Very Simple DSA Problems | HashMap / Dictionary Operations</div>
+        <div class="desc-note">
+            <span>🔑</span> put · get · containsKey · remove · size · iteration · frequency counting · two-sum basics
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="stats" id="statsDisplay">🗺️ showing all 100 problems</div>
+        <div style="display: flex; gap: 12px;">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="filter by 'put', 'get', 'frequency', 'two sum'">
+                <button id="searchBtn">🔍 Filter</button>
+            </div>
+            <button id="resetBtn" class="reset-btn">⟳ Reset</button>
+        </div>
+    </div>
+
+    <div id="problemsContainer" class="problems-grid"></div>
+    <div class="footer-note">
+        🧠 100 fundamental hashmap challenges — each description is a minimal independent task. Perfect for learning key-value pair operations from zero.
+    </div>
+</div>
+
+<script>
+    // 100 TRULY 0-LEVEL HashMap Problems - Only absolute basics, no complex algorithms
+    const hashmapProblems = [
+        { title: "Create empty hashmap", desc: "Initialize an empty dictionary / hashmap." },
+        { title: "Put key-value pair", desc: "Add a key 'name' with value 'Alice' to hashmap." },
+        { title: "Get value by key", desc: "Retrieve value for key 'age' from hashmap." },
+        { title: "Get with default value", desc: "Get value for key, return 'not found' if missing." },
+        { title: "Check if key exists", desc: "Verify if key 'email' is present in hashmap." },
+        { title: "Remove key-value pair", desc: "Delete key 'phone' from hashmap." },
+        { title: "Size of hashmap", desc: "Return number of key-value pairs in hashmap." },
+        { title: "Check if hashmap is empty", desc: "Return true if no key-value pairs exist." },
+        { title: "Clear all entries", desc: "Remove all key-value pairs from hashmap." },
+        { title: "Update value for existing key", desc: "Change value of 'age' from 25 to 26." },
+        { title: "Put if key not exists", desc: "Add key 'city' only if it doesn't already exist." },
+        { title: "Get all keys", desc: "Return list of all keys in hashmap." },
+        { title: "Get all values", desc: "Return list of all values in hashmap." },
+        { title: "Get all entries", desc: "Return all key-value pairs as list of tuples." },
+        { title: "Iterate over keys", desc: "Print each key in hashmap using loop." },
+        { title: "Iterate over values", desc: "Print each value in hashmap using loop." },
+        { title: "Iterate over entries", desc: "Print each key and value pair." },
+        { title: "Check if value exists", desc: "Verify if value 'John' exists in hashmap." },
+        { title: "Count entries", desc: "Count how many key-value pairs are present." },
+        { title: "Copy hashmap", desc: "Create a shallow copy of entire hashmap." },
+        { title: "Merge two hashmaps", desc: "Combine second hashmap into first." },
+        { title: "Compare two hashmaps", desc: "Check if two hashmaps have same key-value pairs." },
+        { title: "Get value with fallback", desc: "Return 'default' if key not found." },
+        { title: "Put multiple pairs", desc: "Add 5 different key-value pairs at once." },
+        { title: "Remove if key exists", desc: "Delete key only if it exists in hashmap." },
+        { title: "Replace existing value", desc: "Replace value for key only if key exists." },
+        { title: "Get or put default", desc: "Get value, if missing put default and return it." },
+        { title: "Find key with max value", desc: "Return key that has largest numeric value." },
+        { title: "Find key with min value", desc: "Return key that has smallest numeric value." },
+        { title: "Sum of all numeric values", desc: "Add all values in hashmap and return total." },
+        { title: "Average of values", desc: "Calculate mean of all numeric values." },
+        { title: "Count keys starting with letter", desc: "Count keys that begin with 'A'." },
+        { title: "Count values greater than X", desc: "Count how many values exceed threshold." },
+        { title: "Remove keys with value 0", desc: "Delete all entries where value equals 0." },
+        { title: "Remove keys with empty string", desc: "Delete entries where value is empty string." },
+        { title: "Swap keys and values", desc: "Create new hashmap where values become keys." },
+        { title: "Filter keys by length", desc: "Keep only keys with length > 3 characters." },
+        { title: "Filter values by type", desc: "Keep only entries where value is integer." },
+        { title: "Convert keys to uppercase", desc: "Transform all keys to uppercase." },
+        { title: "Convert values to string", desc: "Change all values to string type." },
+        { title: "Find common keys", desc: "Return keys that exist in both hashmaps." },
+        { title: "Find unique keys", desc: "Return keys that exist only in first hashmap." },
+        { title: "Find common values", desc: "Return values that appear in both hashmaps." },
+        { title: "Count frequency of letters", desc: "Count how many times each letter appears in 'hello'." },
+        { title: "Count frequency of words", desc: "Count word frequency in 'the cat in the hat'." },
+        { title: "Count frequency of numbers", desc: "Count occurrences in [1,2,2,3,3,3]." },
+        { title: "Find most frequent element", desc: "Return element that appears most in array." },
+        { title: "Find least frequent element", desc: "Return element that appears least in array." },
+        { title: "Find first non-repeating char", desc: "In 'swiss', first non-repeating is 'w'." },
+        { title: "Find first repeating char", desc: "In 'hello', first repeating is 'l'." },
+        { title: "Check if two strings are anagrams", desc: "'listen' and 'silent' are anagrams." },
+        { title: "Group anagrams together", desc: "Group ['eat','tea','tan','ate','nat','bat']." },
+        { title: "Find duplicate elements", desc: "Return elements that appear more than once." },
+        { title: "Find unique elements", desc: "Return elements that appear exactly once." },
+        { title: "Find elements with frequency > 1", desc: "Return values occurring multiple times." },
+        { title: "Find elements with frequency = 1", desc: "Return values occurring only once." },
+        { title: "Two sum - return indices", desc: "Find indices of two numbers that sum to target." },
+        { title: "Two sum - return values", desc: "Find two numbers in array that sum to target." },
+        { title: "Two sum - check existence", desc: "Return true if any pair sums to target." },
+        { title: "Two sum - count pairs", desc: "Count number of pairs that sum to target." },
+        { title: "Two sum - unique pairs", desc: "Count unique pairs (different values) summing to target." },
+        { title: "Find pairs with difference K", desc: "Count pairs where difference equals K." },
+        { title: "Find pairs with product K", desc: "Count pairs where product equals K." },
+        { title: "Jewels and stones", desc: "Count stones that are jewels." },
+        { title: "Ransom note", desc: "Check if magazine letters can form ransom note." },
+        { title: "Majority element (> n/2)", desc: "Find element appearing more than half the time." },
+        { title: "Majority element (> n/3)", desc: "Find elements appearing more than one-third." },
+        { title: "Intersection of two arrays", desc: "Return common elements between two arrays." },
+        { title: "Union of two arrays", desc: "Return all distinct elements from both arrays." },
+        { title: "Symmetric difference", desc: "Return elements in either array but not both." },
+        { title: "Find missing number", desc: "Array 0..N missing one number, find it." },
+        { title: "Find duplicate number", desc: "Array 1..N has one duplicate, find it." },
+        { title: "Find missing and duplicate", desc: "Find both missing and duplicate numbers." },
+        { title: "Isomorphic strings", desc: "Check if 'egg' and 'add' are isomorphic." },
+        { title: "Word pattern", desc: "Check if 'abba' matches 'dog cat cat dog'." },
+        { title: "Contains duplicate", desc: "Check if any value appears more than once." },
+        { title: "Contains duplicate II", desc: "Check duplicates within distance K." },
+        { title: "Find longest consecutive sequence", desc: "Length of longest consecutive elements." },
+        { title: "Find subarray sum equals K", desc: "Count subarrays summing to K." },
+        { title: "Find subarray sum zero", desc: "Check if any subarray sums to 0." },
+        { title: "Longest subarray sum zero", desc: "Find max length subarray summing to 0." },
+        { title: "Longest subarray sum K", desc: "Find max length subarray summing to K." },
+        { title: "Subarray with given sum", desc: "Check if subarray sums to target (positives)." },
+        { title: "Find equilibrium index", desc: "Index where left sum equals right sum." },
+        { title: "Roman to integer", desc: "Convert 'MCMXCIV' to 1994 using hashmap." },
+        { title: "Integer to roman", desc: "Convert 1994 to 'MCMXCIV'." },
+        { title: "Find common characters", desc: "Characters present in all strings." },
+        { title: "Find uncommon words", desc: "Words that appear exactly once across two sentences." },
+        { title: "Number of good pairs", desc: "Count pairs (i,j) where arr[i]==arr[j] and i<j." },
+        { title: "Number of distinct elements", desc: "Count unique values in array." },
+        { title: "Find kth most frequent", desc: "Return kth most frequent element." },
+        { title: "Sort by frequency", desc: "Sort array by descending frequency." },
+        { title: "Top K frequent elements", desc: "Return K most frequent elements." },
+        { title: "Top K frequent words", desc: "Return K most frequent words (lexicographical tie)." },
+        { title: "Find lucky integer", desc: "Find number where value equals frequency." },
+        { title: "Find number with odd frequency", desc: "Find element appearing odd number of times." },
+        { title: "Find number with even frequency", desc: "Find element appearing even number of times." },
+        { title: "Time to type string", desc: "Time to type using one finger on keyboard." },
+        { title: "Keyboard row", desc: "Find words that can be typed using one row." },
+        { title: "Shortest completing word", desc: "Find shortest word containing all letters." },
+        { title: "Number of arithmetic triplets", desc: "Count triplets with equal differences." }
+    ];
+
+    // Ensure exactly 100 problems
+    if (hashmapProblems.length !== 100) {
+        console.warn(`Length: ${hashmapProblems.length}, adjusting to 100`);
+        while(hashmapProblems.length < 100) {
+            hashmapProblems.push({ title: "HashMap practice", desc: "Practice basic dictionary operations like put and get." });
+        }
+        if(hashmapProblems.length > 100) hashmapProblems.length = 100;
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    let currentFilter = "";
+
+    function renderProblems(filterText = "") {
+        const container = document.getElementById("problemsContainer");
+        const statsSpan = document.getElementById("statsDisplay");
+        const lowerFilter = filterText.trim().toLowerCase();
+        
+        let filtered = hashmapProblems;
+        if (lowerFilter !== "") {
+            filtered = hashmapProblems.filter(prob => 
+                prob.title.toLowerCase().includes(lowerFilter) || 
+                prob.desc.toLowerCase().includes(lowerFilter)
+            );
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 3rem; background:#f0f9ff; border-radius: 48px;">🔍 No matching hashmap problems — try 'put', 'get', 'frequency', 'two sum' 🔍</div>`;
+            statsSpan.innerText = `🗺️ 0 / 100 problems match "${filterText}"`;
+            return;
+        }
+        
+        statsSpan.innerText = lowerFilter === "" ? `🗺️ showing all 100 problems` : `🔑 ${filtered.length} / 100 problems match "${filterText}"`;
+        
+        let html = "";
+        for (let i = 0; i < filtered.length; i++) {
+            const prob = filtered[i];
+            const originalIndex = hashmapProblems.findIndex(p => p.title === prob.title && p.desc === prob.desc) + 1;
+            html += `
+                <div class="card">
+                    <div class="prob-index">#${originalIndex}</div>
+                    <div class="prob-title">${escapeHtml(prob.title)}</div>
+                    <div class="prob-desc">🔑 ${escapeHtml(prob.desc)}</div>
+                    <div class="tag">🗺️ hashmap operation</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const searchInput = document.getElementById("searchInput");
+    
+    function performSearch() {
+        currentFilter = searchInput.value;
+        renderProblems(currentFilter);
+    }
+    
+    function resetSearch() {
+        searchInput.value = "";
+        currentFilter = "";
+        renderProblems("");
+    }
+    
+    searchBtn.addEventListener("click", performSearch);
+    resetBtn.addEventListener("click", resetSearch);
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") performSearch();
+    });
+    
+    renderProblems("");
+</script>
+</body>
+</html>
